@@ -1,0 +1,39 @@
+{
+  "name": "gridrunner-node-sdrserver",
+  "description": "This module allows you to boot a server to stream sdr data",
+  "version": "0.0.1",
+  "homepage": "http://www.gridrunner.net",
+  "author": {
+    "name": "Darren White",
+    "email": "darren@gridrunner.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gridrunnernet/gridrunner-node-sdrserver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gridrunnernet/gridrunner-node-sdrserver/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://www.gnu.org/licenses/gpl.html"
+    }
+  ],
+  "main": "",
+  "engines": {
+    "node": ">= 0.9.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+        "amdefine":">0.0.0",
+        "express":">0.0.0",
+        "jade":">0.0.0",
+        "socket.io":">0.0.0"
+  },
+  "keywords": []
+}
+
+
