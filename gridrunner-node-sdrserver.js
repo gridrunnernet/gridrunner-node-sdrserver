@@ -7,6 +7,7 @@ var server = http.createServer(app).listen(3000);
 io = require('socket.io').listen(server);
 var jade = require('jade');
 var running=false;
+var chunksize=40000;
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -22,20 +23,39 @@ app.get('/', function(req, res){
 
 io.sockets.on('connection', function (socket) {
     connection();
+    console.log("CONNECTED");
     socket.on('disconnect', function(){
-        console.log("DISCONNECT");
         disconnection();
     });
 });
+
+function arraychunker(a, n) {
+    var len = a.length,out = [], i = 0;
+    while (i < len) {
+        var size = Math.ceil((len - i) / n--);
+        out.push(a.slice(i, i += size));
+    }
+    return out;
+}
 
 var ondata = function(err,data){
     if(err){
         console.log(err);
     }
     else{
-        console.log(data);
+        if(data.data.length<chunksize){
+            io.sockets.volatile.emit('radio', data.data);
+        }
+        else{
+            var pieces = Math.round(data.data.length/chunksize);
+            var chunks=arraychunker(data.data,pieces);
+            for (var i=0; i<chunks.length;i++){
+                io.sockets.volatile.emit('radio', chunks[i]);
+            }
+        }
     }
 };
+
 
 function connection(){
     connections++;
@@ -61,4 +81,3 @@ function disconnection(){
      console.log("No users going to sleep.");
      }
 }
-
