@@ -7,7 +7,7 @@ var server = http.createServer(app).listen(3000);
 io = require('socket.io').listen(server);
 var jade = require('jade');
 var running=false;
-var chunksize=40000;
+var chunksize=10000;
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -55,7 +55,6 @@ var ondata = function(err,data){
         }
     }
 };
-
 
 function connection(){
     connections++;
